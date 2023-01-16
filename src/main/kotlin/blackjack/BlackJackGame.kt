@@ -6,7 +6,6 @@ import blackjack.domain.participantion.Participant
 import blackjack.domain.participantion.Player
 import blackjack.domain.participantion.Players
 import blackjack.domain.participantion.Price
-import blackjack.domain.result.Income
 import blackjack.domain.result.Losers
 import blackjack.domain.result.Winners
 import blackjack.view.InputView
@@ -28,9 +27,10 @@ class BlackJackGame {
     private fun printIncome(dealer: Dealer, players: List<Player>) {
         val winners = Winners.from(dealer, players)
         val losers = Losers.from(dealer, players)
-        val settledParticipants = Income.settle(winners, losers, dealer)
 
         ResultView.printMessage(ResultView.Message.INCOME)
+        dealer.settleDealerPrice(winners, losers, dealer)
+        val settledParticipants = listOf(dealer) + winners.players + losers.settle()
 
         settledParticipants.forEach { participant ->
             ResultView.printIncome(participant)

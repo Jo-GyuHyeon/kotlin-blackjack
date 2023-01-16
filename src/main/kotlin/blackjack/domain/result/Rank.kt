@@ -10,12 +10,7 @@ sealed class Rank(
     fun exist(name: String): Boolean =
         players.any { player -> player.name == name }
 
-    fun getTotalPrice(): Price =
-        players.fold(Price(0)) { acc, player ->
-            val price = player.price
-
-            acc + price
-        }
+    fun getTotalPrice(): Price = Price(players.sumOf { it.priceAmount })
 
     fun getBlackJackPlayers(): List<Player> = players.filter { player -> player.isBlackJack() }
 }

@@ -22,6 +22,9 @@ class Price(amount: Int) {
         this.amount -= price.amount
     }
 
+    fun times(other: Double) = this.amount.times(other)
+
+
     operator fun plus(price: Price): Price = Price(this.amount + price.amount)
 
     companion object {
